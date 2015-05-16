@@ -1,0 +1,18 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  padding-top: 50px;
+}
+.footer {
+  bottom: 0;
+  background-color: #F1F1F1;
+  border-top: 1px solid #E0E0E0;
+  color: #b0b0b0;
+  font-size: .929em;
+  height: 80px;
+  padding-top: 10px;
+  text-align: center;
+}
