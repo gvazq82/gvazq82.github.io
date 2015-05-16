@@ -6,6 +6,40 @@ html {
 body {
   padding-top: 50px;
 }
+
+.top-header {
+	text-align: center;
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+.section {
+	
+}
+
+.section h2 {
+	text-align: center;
+}
+
+.expertise {
+	text-align: center;
+	padding-bottom: 60px;
+}
+.expertise img{
+	width: 160px; 
+	height: 160px;
+}
+.projects {
+  background-color: #F5F5F5;
+  border-top: 1px solid #E0E0E0;
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+.divider {
+  background-color: #808082;
+  height: 2px;
+  width: 80px;
+  margin: 30px auto;
+}
 .footer {
   bottom: 0;
   background-color: #F1F1F1;
