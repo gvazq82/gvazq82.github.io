@@ -1,0 +1,56 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  padding-top: 50px;
+}
+
+.top-header {
+	text-align: center;
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+.section {
+	
+}
+
+.section h2 {
+	text-align: center;
+}
+
+.expertise {
+	text-align: center;
+	padding-bottom: 60px;
+}
+.expertise img{
+	width: 160px; 
+	height: 160px;
+}
+.projects {
+  background-color: #F5F5F5;
+  border-top: 1px solid #E0E0E0;
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+.project {
+  text-align: center;
+  background-color: #FFFFFF;
+}
+.divider {
+  background-color: #808082;
+  height: 2px;
+  width: 80px;
+  margin: 30px auto;
+}
+.footer {
+  bottom: 0;
+  background-color: #F1F1F1;
+  border-top: 1px solid #E0E0E0;
+  color: #b0b0b0;
+  font-size: .929em;
+  height: 80px;
+  padding-top: 10px;
+  text-align: center;
+}
