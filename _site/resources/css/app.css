@@ -10,11 +10,22 @@ body {
 	min-height: 500px
 }
 .top-header {
-	text-align: center;
-	padding-top: 80px;
-	padding-bottom: 80px;
+	color: #FFF;
+	padding-top: 160px;
+	padding-bottom: 160px;
+	min-height: 400px;
+	background: url(../images/gabriel_vazquez_ws.jpg) no-repeat center/cover fixed;
 }
 .section {
+	
+}
+.section.even {
+  background-color: #F5F5F5;
+  border-top: 1px solid #E0E0E0;
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+.section.odd {
 	
 }
 
@@ -37,12 +48,10 @@ body {
 }
 .about {
 	text-align: justify;
+	
 }
 .projects {
-  background-color: #F5F5F5;
-  border-top: 1px solid #E0E0E0;
-  padding-top: 30px;
-  padding-bottom: 60px;
+  
 }
 .project {
   text-align: center;
