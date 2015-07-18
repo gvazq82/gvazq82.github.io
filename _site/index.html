@@ -38,9 +38,9 @@
 				</div>
 				<div class="collapse navbar-collapse" id="top-menu-collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#projects"><span
+						<li><a href="/#projects"><span
 								class="glyphicon glyphicon-cog"></span>&nbsp;Projects</a></li>
-						<li><a href="#about"><span
+						<li><a href="/#about"><span
 								class="glyphicon glyphicon-user"></span>&nbsp;About</a></li>
 					</ul>
 				</div>
@@ -48,7 +48,7 @@
 			</nav>
 		</header>
 
-        <main class="main">
+        <div class="main">
 
             <div id="top-header" class="jumbotron top-header">
 	<!-- TOP HEADER -->
@@ -74,7 +74,8 @@
 					alt="Web Development">
 				<h4 class="uppercase">Web Development</h4>
 				<div class="divider-small"></div>
-				<p class="text-muted">UI Developer with experience working with HTML5, CSS3 and some of the most popular JavaScript like Backbone JS, Ember JS and Sencha Touch. </p>
+				<p class="text-muted">UI Developer with experience working with HTML5, CSS3 and some of 
+				the most popular JavaScript frameworks like Backbone JS, Ember JS and Sencha Touch. </p>
 			</div>
 			<div
 				class="col-xs-12 col-md-offset-1 col-sm-offset-1 col-sm-4 col-md-4 fadeInRightSmall animated"
@@ -188,21 +189,35 @@
 	<article class="container-fluid section projects odd" id="projects">
 		<h2>Projects</h2>
 		<div class="divider"></div>
-		<section class="col-sm-6 col-md-6">
-			<div class="thumbnail">
-				<div class="caption">
-					<h3>Backbone: A MVC application</h3>
-					<p class="text-muted">Backbone JS, Require JS, Jasmine JS</p>
-					<p>An opinionated application in Backbone to demostrate the
-						Model View Controller pattern.</p>
-					<p>
-						<a href="#" class="btn btn-primary" role="button">See Details</a>
-					</p>
+		
+			<section class="col-sm-6 col-md-6">
+				<div class="thumbnail">
+					<div class="caption">
+						<h3>Backbone, MVC application</h3>
+						<p class="text-muted">Backbone JS, Require JS, Jasmine JS</p>
+						<p>An opinionated application in Backbone to demostrate the Model View Controller pattern.</p>
+						<p>
+							<a href="/2015/01/07/Backbone_MVC/" class="btn btn-primary" role="button">See Details</a>
+						</p>
+					</div>
 				</div>
-			</div>
-		</section>
-
+			</section>
+		
+		
 		<!-- 
+			<section class="col-sm-6 col-md-6">
+	<div class="thumbnail">
+		<div class="caption">
+			<h3>Backbone: A MVC application</h3>
+			<p class="text-muted">Backbone JS, Require JS, Jasmine JS</p>
+			<p>An opinionated application in Backbone to demostrate the Model
+				View Controller pattern.</p>
+			<p>
+				<a href="#" class="btn btn-primary" role="button">See Details</a>
+			</p>
+		</div>
+	</div>
+</section>
 			<section class="project">
 				<h3>JQuery: Plugin for d3.js</h3>
 				<p>JQuery, D3.js</p>
@@ -214,7 +229,7 @@
 </div>
 
 
-        </main>
+        </div>
 
         <!-- FOOTER -->
 		<footer class="footer">
