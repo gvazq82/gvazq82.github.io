@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title> Backbone, MVC application |  Gabriel Vazquez | Software Engineer</title>
+        <title> MVC application with Backbone JS |  Gabriel Vazquez | Software Engineer</title>
         
         <link rel="shortcut icon" href="/resources/images/gv_logo.ico">        
         
@@ -51,14 +51,81 @@
         <div class="main">
 
             <div class="container-fluid">
-	<section class="col-sm-6 col-md-6">
+	<section class="col-sm-8 col-md-offset-2">
 		<article>
-	<h2>Backbone: A MVC application</h2>
-	<p class="text-muted">Backbone JS, Require JS, Jasmine JS</p>
-			<p>An opinionated application in Backbone to demostrate the Model
-				View Controller pattern.</p>
-			<p>
+	<h2>MVC application with Backbone JS</h2>
+	<p class="text-muted">
+		<a href="https://github.com/gvazq82/backbone-amd">
+			<i class="fa-stack fa-sm">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+			</i>
+		</a>Backbone JS, Require JS, Jasmine JS
+	</p>
 
+	<section>
+		<h3>Problem</h3>
+		<p>According to the Backbone Documentation "Backbone should
+			continue to be a tool that gives you the freedom to design the full
+			experience of your web application", this leaves so many options for
+			the developers to define their own implementation for the
+			application, leaving the architecture decisions be defined according
+			to the developer expertise. This flexibility allows to create great
+			variety of implementations but also open the window to have poor and
+			not scalable applications.</p>
+
+	</section>
+	<section>
+		<h3>Objective</h3>
+		<p>Create a scalable single page application using Backbone JS,
+			Underscore JS, Require JS and Bootstrap applying the MVC pattern.</p>
+	</section>
+	<section>
+		<h3>Implementation</h3>
+		<p>Backbone is more a Model View Model (MVM) "framework" instead of
+			Model View Controller (MVC). This is because does not provide a
+			"Controller" component by default.</p>
+		<p>There are some many discussions about what a "Controller"
+			should be and if this is not already cover by the Router, in my opinion the Router has 
+			a very specific function listening for the changes on the URL, but there
+			is not component who actually is just responsible to integrate multiple views and make them work together, this is 
+			the 'Controller'.
+		</p>
+		<p>	
+			For this example, I integrated a custom component called "Controller"
+			who is the responsible to encapsulate chunks of functionality wrapping different "Views" in a single component and 
+			handling the interactions between them.
+			<br><br>
+		The "Controller" is just an object with a common signature that includes the methods:
+		</p>
+		
+		<ul>
+			<li><strong>init:</strong> Called at the beginning, before the
+				controller is executed to setup variables or the layout for the
+				component.</li>
+			<li><strong>run:</strong> It is the main method of execution who
+				receives the data and region where the component needs to be
+				displayed. It is important to allow the component be reused.</li>
+		</ul>
+		<p>
+		Each controller is been executed for the function <strong>ExecuteController</strong>
+		that is the responsible to provide the "Data" and "Region" the
+		controller could use to render the content.
+		</p>
+		<h4>Layouts</h4>
+		<p>
+		Other key component in the implementation is the use of the Layout, who is the responsible to 
+		render the views in a specific section and avoid <a target="_blank" href="https://lostechies.com/derickbailey/2011/09/15/zombies-run-managing-page-transitions-in-backbone-apps/">Zombies</a> 
+		views effects making sure the section 
+		is cleaned and the events are unbind on the view destruction.
+		</p>
+		<h4>Exceptions</h4>
+		<p>
+		As each controller is responsible just for specific functionality to be render in a specific section, 
+		if there is any issue while processing the component, it is possible to display an error just in that section, not affecting
+		all functionality.
+		</p>
+	</section>
 </article>
 
 	</section>
