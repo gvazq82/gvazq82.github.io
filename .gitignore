@@ -1,2 +1,6 @@
 
 .project
+
+_site/*/**.*
+
+_site/index.html
