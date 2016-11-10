@@ -1,0 +1,77 @@
+---
+layout: posts
+title: Migrate RequireJS application to Browserify.
+subtitle: Backbone JS, Browserify, Jasmine JS
+description: Migration process from AMD to CommonJS.
+---
+<article>
+  <h2>Migrate AMD RequireJS to Browserify JS</h2>
+  <p class="text-muted">
+    <a target="_blank" href="https://github.com/gvazq82/backbone-browserify">
+      <i class="fa-stack fa-sm">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </i>
+    </a>Backbone JS, Browserify, Jasmine JS
+  </p>
+  <section>
+    <h3>Problem</h3>
+    <p>Migrate existent RequireJS application to Browserify including
+      npm as package manager.
+    </p>
+  </section>
+  <section>
+    <h3>Objective</h3>
+    <p>Migrate existent AMD application to Browserify.</p>
+  </section>
+  <section>
+    <h3>Migration Process</h3>
+    <ul>
+      <li>
+        Create a new <strong>package.json</strong> at the root folder of my new application.
+      </li>
+      <li>
+        Install the required dependencies for my project:
+        - backbone
+        - underscore
+        - jQuery
+        
+        and the following dev dependencies:
+        - bootstrap-sass
+        - browserify
+        - jasmine
+        - jstify
+      </li>
+      <li>
+        Replace all the RequireJS packages defined as:
+           define(['backbone'], function(Backbone) {
+             ...
+             return {};
+           });
+        
+        By CommonJS packages:
+           var Backbone = require('backbone');
+           ...
+           module.exports = {};
+        
+      </li>
+      <li>
+        Create a main.js file responsible to include all dependencies and some setup required to work with Backbone/JQuery.
+        <span>
+          var Backbone = require('backbone');
+          var $ = require('jquery');
+          Backbone.$ = $;
+        </span>
+        As well require to execute the App.Start() function responsible to initialize the routers.
+      </li>
+      <li>
+        Include the require scripts to build my application inside package.json.
+      </li>
+    </ul>
+    <p>
+       
+    </p>
+    <p></p>
+    <p></p>
+  </section>
+</article>

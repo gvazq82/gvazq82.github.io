@@ -1,6 +1,8 @@
+.settings/
 
 .project
 
 _site/*/**.*
 
 _site/index.html
+.idea/
