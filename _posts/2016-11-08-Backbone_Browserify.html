@@ -1,0 +1,116 @@
+---
+layout: posts
+title: Migrate MVC application to Browserify.
+subtitle: Backbone JS, Browserify, Jasmine JS
+description: Migration process from AMD to CommonJS.
+---
+<article>
+  <h2>Migrate RequireJS application to Browserify</h2>
+  <p class="text-muted">
+    <a target="_blank" href="https://github.com/gvazq82/backbone-browserify">
+      <i class="fa-stack fa-sm">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </i>
+    </a>Backbone JS, Browserify, Jasmine JS
+    <br>{{ page.date | date: '%B %d, %Y' }}
+  </p>
+  <section>
+    <h3>Problem</h3>
+    <p>Migrate an existent RequireJS application to Browserify.
+    </p>
+  </section>
+  <section>
+    <h3>Objective</h3>
+    <p>Have a new version of the previous AMD application running now with Browserify.</p>
+  </section>
+  <section>
+    <h3>Migration Process</h3>
+    <p>
+      Here is my journey to migrate an existent AMD application to Browserify since I wanted to start using different
+      frameworks with the initial problem I wanted to solve with my AMD application.
+    </p>
+    <p>
+      1. Create a new project with similar structure including a <strong>package.json</strong> file.
+    </p>
+    <p>
+      2. Install the required <strong>dependencies</strong> for my project:
+      <ul>
+        <li>backbone</li>
+        <li>underscore</li>
+        <li>jQuery</li>
+      </ul>
+      And the following <strong>dev dependencies</strong>:
+      <ul>
+        <li>bootstrapSass</li>
+        <li>browserify</li>
+        <li>jasmine</li>
+        <li>jstify</li>
+      </ul>
+    </p>
+    <p>
+      3. Replace all the RequireJS packages By CommonJS packages like this:
+{% highlight javascript %}
+define(['backbone'], function(Backbone) {
+  return {};
+});
+{% endhighlight %}
+    
+{% highlight javascript %}
+var Backbone = require('backbone');
+module.exports = {};
+{% endhighlight %}
+    </p>
+    <p>
+      4. Create a <strong>main.js</strong> file responsible to include all dependencies and some setup required to work
+      with Backbone/JQuery.
+{% highlight javascript %}
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+{% endhighlight %}
+      This file is also required to start the execution of my application using the previously created function
+      <strong>App.Start()</strong>.
+    </p>
+    <p>
+      5. For the AMD application it was possible to load the controllers on demand, passed as configuration, but since
+      browserify is not packaging any dependency that is explicitly required in the code, it is not going to work with
+      the dynamic approach previously defined. Instead, it is required to define all my controllers in a file to be able
+      to continue using my dynamic approach:
+{% highlight javascript%}
+// Need to require the controllers
+require('../app/controllers/about');
+require('../app/controllers/contact');
+require('../app/controllers/exception');
+require('../app/controllers/home');
+{% endhighlight%}
+    </p>
+    <p>
+      6. Include bootstrap SASS to be ready in the future to integrate additional styles and also to have more freedom
+      about the final bundle.css file generated and destination.
+    </p>
+    <p>
+      7. Create the required node scripts to build the components for the application.
+{% highlight javascript%}
+"scripts": {
+  "create-dist": "mkdir -p dist",
+  "clean-dist": "rm -rf dist",
+  "copy-fonts": "cp -R node_modules/bootstrap-sass/assets/fonts/ dist/fonts",
+  "build-js": "browserify src/app.js > dist/bundle.js",
+  "build-css": "node-sass src/main.scss dist/css/bundle.css",
+  "build": "npm run clean-dist && npm run create-dist && npm run build-js && npm run build-css && npm run copy-fonts"
+}
+{% endhighlight%}
+    </p>
+  </section>
+  <section>
+    <h3>Summary</h3>
+    <p>
+      The complete process of migrating the AMD application to Browserify took me around 4 hours since I am already using
+      it at work, the most important challenges I found was to be able to continue using a dynamic approach to execute the
+      controllers and keep away of a more advance build tool like grunt or gulp using just node scripts.
+      
+      At this time it is still pending the migration of the tests.
+    </p>
+  </section>
+</article>
