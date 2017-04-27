@@ -1,0 +1,100 @@
+---
+layout: posts
+title: Migrate MVC application to Webpack.
+subtitle: Backbone JS, Webpack 2.0, Jasmine JS
+description: Migration process from Browserify to Webpack 2.0
+---
+<article>
+  <h2>Migrate Browserify application to Webpack 2.0</h2>
+  <p class="text-muted">
+    <a target="_blank" href="https://github.com/gvazq82/backbone-webpack">
+      <i class="fa-stack fa-sm">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </i>
+    </a>Backbone JS, Webpack 2.0, Jasmine JS
+    <br>{{ page.date | date: '%B %d, %Y' }}
+  </p>
+  <section>
+    <h3>Problem</h3>
+    <p>Migrate an existent Browserify application to Webpack 2.0.
+    </p>
+  </section>
+  <section>
+    <h3>Objective</h3>
+    <p>Have a new version of the previous Browserify application running now with Webpack 2.0.</p>
+  </section>
+  <section>
+    <h3>Migration Process</h3>
+    <p>
+      I want to migrate a bigger application at work that currently is using Browserify and use instead Webpack 2.0
+      but first I would like to start with this small sandbox to understand the required effort to migrate and
+      possible error during the migration.
+    </p>
+    <p>
+      First I created another repository in GitHub to migrate the application.
+    </p>
+    {% highlight bash %}
+mkdir backbone-webpack
+git init
+git add .
+git commit "Initial Commit"
+git remote add origin https://github.com/gvazq82/backbone-webpack.git
+    {% endhighlight %}
+    <p>
+      I copied almost entirely my previous <a target="_blank" href="https://github.com/gvazq82/backbone-browserify">backbone-browserify</a>
+      application structure to the new project, including:
+      <ul>
+        <li>index.html</li>
+        <li>/src/*.*</li>
+      </ul>
+    </p>
+    <p>
+      Instead of copying the previous <b>package.json</b> decided to start from a new configuration leaving the defaults.
+    </p>
+    {% highlight bash %}
+    npm init
+    {% endhighlight %}
+    <p>
+      Installed Webpack and previous project dependencies.
+    </p>
+    {% highlight bash %}
+npm install --save-dev webpack
+npm install --save-dev bootstrap-sass
+npm install backbone bootstrap jquery underscore
+    {% endhighlight %}
+    <p>
+      Created a <b>webpack.config.js</b> file that should include the following project configuration.
+    </p>
+    {% highlight javascript linenos %}
+var path = require('path');
+  
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
+};
+    {% endhighlight %}
+    <p>
+      It could be possible to execute Webpack directly from command line, but instead I would like to define a package
+      script to run the build.
+      {% highlight json linenos %}
+"scripts": {
+  "start": "webpack --config webpack.config.js"
+}
+      {% endhighlight %}
+    </p>
+  </section>
+  <section>
+    <h3>Summary</h3>
+    <p>
+      The complete process of migrating the AMD application to Browserify took me around 4 hours since I am already using
+      it at work, the most important challenges I found was to be able to continue using a dynamic approach to execute the
+      controllers and keep away of a more advance build tool like grunt or gulp using just node scripts.
+      
+      At this time it is still pending the migration of the tests.
+    </p>
+  </section>
+</article>
