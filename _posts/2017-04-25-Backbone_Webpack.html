@@ -1,7 +1,7 @@
 ---
 layout: posts
-title: Migrate MVC application to Webpack.
-subtitle: Backbone JS, Webpack 2.0, Jasmine JS
+title: Migrate Browserify application to Webpack.
+subtitle: Backbone JS, Webpack 2.0
 description: Migration process from Browserify to Webpack 2.0
 ---
 <article>
@@ -12,7 +12,7 @@ description: Migration process from Browserify to Webpack 2.0
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa-github fa-stack-1x fa-inverse"></i>
       </i>
-    </a>Backbone JS, Webpack 2.0, Jasmine JS
+    </a>Backbone JS, Webpack 2.0
     <br>{{ page.date | date: '%B %d, %Y' }}
   </p>
   <section>
@@ -31,6 +31,7 @@ description: Migration process from Browserify to Webpack 2.0
       but first I would like to start with this small sandbox to understand the required effort to migrate and
       possible error during the migration.
     </p>
+    <h4>Setup repository</h4>
     <p>
       First I created another repository in GitHub to migrate the application.
     </p>
@@ -41,6 +42,7 @@ git add .
 git commit "Initial Commit"
 git remote add origin https://github.com/gvazq82/backbone-webpack.git
     {% endhighlight %}
+    <h4>Moving folders</h4>
     <p>
       I copied almost entirely my previous <a target="_blank" href="https://github.com/gvazq82/backbone-browserify">backbone-browserify</a>
       application structure to the new project, including:
@@ -49,6 +51,7 @@ git remote add origin https://github.com/gvazq82/backbone-webpack.git
         <li>/src/*.*</li>
       </ul>
     </p>
+    <h4>Install dependencies</h4>
     <p>
       Instead of copying the previous <b>package.json</b> decided to start from a new configuration leaving the defaults.
     </p>
@@ -63,8 +66,15 @@ npm install --save-dev webpack
 npm install --save-dev bootstrap-sass
 npm install backbone bootstrap jquery underscore
     {% endhighlight %}
+    <h4>Configure Webpack</h4>
     <p>
-      Created a <b>webpack.config.js</b> file that should include the following project configuration.
+      The first step is create a file called <b>webpack.config.js</b> that should contain the required Webpack configuration.
+    </p>
+    <h5>Creating bundle.js</h5>
+    <p>
+      To be able to generate the same bundle.js, it is required to define the entry file for my application and the destination
+      folder where the file will be located, Webpack allows to define that in very simple steps and same as the previous version,
+      I will use the file <b>app.js</b> as the entry point.
     </p>
     {% highlight javascript linenos %}
 var path = require('path');
@@ -77,24 +87,90 @@ module.exports = {
   }
 };
     {% endhighlight %}
+    <h5>
+      Creating Styles
+    </h5>
     <p>
-      It could be possible to execute Webpack directly from command line, but instead I would like to define a package
-      script to run the build.
-      {% highlight json linenos %}
-"scripts": {
+      In the previous versions the required styles were included in the <b>bundle.css</b> file and built using a gulp task,
+      to achieve the same goal, we must need to include the required configuration for Webpack and Bootstrap; the first step is to install the required loaders.
+    </p>
+    {% highlight bash %}
+    npm install bootstrap-sass css-loader sass-loader node-sass file-loader style-loader --save-dev
+    {% endhighlight %}
+    <p>
+      Then, we should include the different loaders and the corresponding mappings to properly load the files:
+    </p>
+    {% highlight json linenos %}
+rules: [ {
+  test: /\.scss$/,
+  use: [ {
+    loader: "style-loader"
+  }, {
+    loader: "css-loader"
+  }, {
+    loader: 'sass-loader'
+  } ]
+}, {
+  test: /\.woff2?$|\.ttf$|\.eot$|\.svg$/,
+  use: [ {
+    loader: "file-loader"
+  } ]
+} ]
+    {% endhighlight %}
+    <p>
+      Since the entry point are now two different files, we must change "entry" property to become an Array.
+    </p>
+    {% highlight json linenos %}
+      entry: [ './src/app.js', './src/main.scss' ]
+    {% endhighlight %}
+    <p>
+     Previously we had an independent generated styles file 'bundle.css', but webpack includes everything by default
+     in bundle.js, the next should be generate an independent file for that.
+    </p>
+    <h4>Building</h4>
+    <p>
+      It is possible to execute Webpack directly from command line, but instead I defined a script in the package.json file.
+    </p>
+    {% highlight json linenos %}
+    "scripts": {
   "start": "webpack --config webpack.config.js"
 }
-      {% endhighlight %}
+    {% endhighlight %}
+    <p>
+      Execute the script command to build the bundle.
     </p>
+    {% highlight bash %}
+    npm run start
+    {% endhighlight %}
+    <h5>Fixing issues</h5>
+    <p>After running the script, there are some warning logs in the console I should fix:</p>
+    {% highlight bash %}
+    WARNING in ./src/app/collections/Contacts.js
+    There are multiple modules with names that only differ in casing.
+    This can lead to unexpected behavior when compiling on a filesystem with other case-semantic.
+    Use equal casing. Compare these module identifiers:
+    ...
+    Used by 1 module(s), i. e.
+    {% endhighlight %}
+    <p>
+      I was not aware one of the require sentences was incorrect and had to fix it in "/controllers/contact.js".
+    </p>
+    
   </section>
   <section>
     <h3>Summary</h3>
     <p>
-      The complete process of migrating the AMD application to Browserify took me around 4 hours since I am already using
-      it at work, the most important challenges I found was to be able to continue using a dynamic approach to execute the
-      controllers and keep away of a more advance build tool like grunt or gulp using just node scripts.
+      Migrating my previous application running with Browserify to Webpack 2.0 was an easy process having also a little
+      background about how a RequireJS application works.
       
-      At this time it is still pending the migration of the tests.
+      My next steps about this application should be:
     </p>
+    <ol>
+      <li>Generate bundle.css for production environments.</li>
+      <li>Review analytics tools provided by Webpack.</li>
+      <li>See if possible to load "controllers" dynamically.</li>
+      <li>Include developer tools similar Watchify to automatically reflect changes without refresh.</li>
+      <li>Run unit tests.</li>
+    </ol>
   </section>
 </article>
