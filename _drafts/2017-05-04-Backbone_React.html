@@ -1,0 +1,73 @@
+---
+layout: posts
+title: Migrate MVC BackboneJS application to ReactJS.
+subtitle: Backbone JS, Webpack 2.0, React JS
+description: Migration process from BackboneJS to ReactJS
+---
+<article>
+  <h2>Migrate Backbone application to React JS</h2>
+  <p class="text-muted">
+    <a target="_blank" href="https://github.com/gvazq82/backbone-react">
+      <i class="fa-stack fa-sm">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </i>
+    </a>Backbone JS, Webpack 2.0, React JS
+    <br>{{ page.date | date: '%B %d, %Y' }}
+  </p>
+  <section>
+    <h3>Problem</h3>
+    <p>Migrate an existent Backbone application to React JS.
+    </p>
+  </section>
+  <section>
+    <h3>Objective</h3>
+    <p>Migrate the existent Backbone MVC application to React JS.</p>
+  </section>
+  <section>
+    <h3>Migration Process</h3>
+    <h4>React base application</h4>
+    <p>
+      I would like to save time and use "create-react-app" library to speed up the development, take a look to the documentation
+      it simplifies the start process with some limitations that at this point I am ok with, for more information
+      click <a target="_blank" href="https://facebook.github.io/react/blog/2016/07/22/create-apps-with-no-configuration.html">here</a>.
+    </p>
+    {% highlight bash %}
+    create-react-app backbone-react
+    {% endhighlight %}
+    <h4>Setup repository</h4>
+    <p>
+      Once the base project structure has been created, it is required to create a GitHub repository to commit all changes.
+    </p>
+    {% highlight bash %}
+git init
+git add .
+git commit -m "Initial Commit"
+git remote add origin https://github.com/gvazq82/backbone-react.git
+git push -u origin master
+    {% endhighlight %}
+    
+    
+    <h4>Moving folders</h4>
+    <p>
+      I copied almost entirely my previous <a target="_blank" href="https://github.com/gvazq82/backbone-browserify">backbone-browserify</a>
+      application structure to the new project, including:
+    </p>
+  </section>
+  <section>
+    <h3>Summary</h3>
+    <p>
+      Migrating my previous application running with Browserify to Webpack 2.0 was an easy process having also a little
+      background about how a RequireJS application works.
+      
+      My next steps about this application should be:
+    </p>
+    <ol>
+      <li>Generate bundle.css for production environments.</li>
+      <li>Review analytics tools provided by Webpack.</li>
+      <li>See if possible to load "controllers" dynamically.</li>
+      <li>Include developer tools similar Watchify to automatically reflect changes without refresh.</li>
+      <li>Run unit tests.</li>
+    </ol>
+  </section>
+</article>
